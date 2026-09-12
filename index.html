@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GameZone - Semana 4 | Bootstrap 5</title>
+  <title>GameZone - Semana 5 | Manipulación del DOM con JavaScript</title>
 
   <!-- Bootstrap 5.3 CSS via CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,6 +35,14 @@
     }
     .skip-link:focus {
       top: 0;
+    }
+    /* Semana 5: resalte de cards al pasar el mouse (evento mouseover/mouseout) */
+    .card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.25) !important;
     }
   </style>
 </head>
@@ -145,53 +153,68 @@
 
         <!-- Tarjetas de productos: se organizan dentro del grid de Bootstrap -->
         <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 shadow-sm"
+               data-detalle="Explora más de 30 regiones distintas, sistema de crafteo profundo y decisiones que cambian el final de la historia.">
             <img src="img/card-rpg.jpg"
                  class="card-img-top" alt="Portada de juego de aventura RPG">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Reino Perdido</h5>
               <p class="card-text">RPG de mundo abierto con más de 80 horas de juego.</p>
-              <a href="#" class="btn btn-primary mt-auto">Ver más</a>
+              <a href="#" class="btn btn-primary mt-auto js-toggle-detalle" aria-expanded="false">Ver más</a>
             </div>
           </div>
         </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 shadow-sm"
+               data-detalle="Incluye 12 circuitos basados en ciudades reales, modo carrera con progresión de vehículos y multijugador online.">
             <img src="img/card-carreras.jpg"
                  class="card-img-top" alt="Portada de juego de carreras">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Velocidad Extrema</h5>
               <p class="card-text">Simulador de carreras con circuitos reales.</p>
-              <a href="#" class="btn btn-primary mt-auto">Ver más</a>
+              <a href="#" class="btn btn-primary mt-auto js-toggle-detalle" aria-expanded="false">Ver más</a>
             </div>
           </div>
         </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 shadow-sm"
+               data-detalle="6 civilizaciones jugables, árbol tecnológico completo y modo campaña histórica de 20 misiones.">
             <img src="img/card-estrategia.jpg"
                  class="card-img-top" alt="Portada de juego de estrategia">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Imperios en Guerra</h5>
               <p class="card-text">Estrategia por turnos ambientada en la antigüedad.</p>
-              <a href="#" class="btn btn-primary mt-auto">Ver más</a>
+              <a href="#" class="btn btn-primary mt-auto js-toggle-detalle" aria-expanded="false">Ver más</a>
             </div>
           </div>
         </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 shadow-sm"
+               data-detalle="Compatible con PC y consolas, batería de hasta 20 horas y gatillos programables.">
             <img src="img/card-control.jpg"
                  class="card-img-top" alt="Foto de control gamer inalámbrico">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Control Pro X</h5>
               <p class="card-text">Control inalámbrico con vibración dual y ergonomía mejorada.</p>
-              <a href="#" class="btn btn-primary mt-auto">Ver más</a>
+              <a href="#" class="btn btn-primary mt-auto js-toggle-detalle" aria-expanded="false">Ver más</a>
             </div>
           </div>
         </div>
 
+      </div>
+
+      <!-- Contenedor donde se agregan dinámicamente los juegos cargados vía Fetch API -->
+      <div class="row g-4 mt-1" id="catalogo-extra"></div>
+
+      <!-- Botón que dispara la Fetch API hacia juegos.json -->
+      <div class="row">
+        <div class="col-12 text-center mt-4">
+          <button id="btn-cargar-juegos" class="btn btn-secondary">Cargar más juegos</button>
+          <p id="catalogo-estado" class="mt-2" aria-live="polite"></p>
+        </div>
       </div>
     </section>
 
@@ -204,20 +227,22 @@
       </div>
       <div class="row g-4">
         <div class="col-md-6">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 shadow-sm"
+               data-detalle="Incluye 3 juegos independientes con estilos completamente distintos: plataformas, narrativo y puzzle.">
             <div class="card-body">
               <h5 class="card-title">Pack Indie</h5>
               <p class="card-text">3 juegos independientes seleccionados a un precio único.</p>
-              <a href="#" class="btn btn-outline-primary">Ver oferta</a>
+              <a href="#" class="btn btn-outline-primary js-toggle-detalle" aria-expanded="false">Ver oferta</a>
             </div>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 shadow-sm"
+               data-detalle="El combo incluye control inalámbrico, audífonos con sonido envolvente y mousepad extendido.">
             <div class="card-body">
               <h5 class="card-title">Combo Setup Gamer</h5>
               <p class="card-text">Control + audífonos + mousepad con 25% de descuento.</p>
-              <a href="#" class="btn btn-outline-primary">Ver oferta</a>
+              <a href="#" class="btn btn-outline-primary js-toggle-detalle" aria-expanded="false">Ver oferta</a>
             </div>
           </div>
         </div>
@@ -230,12 +255,39 @@
   <footer id="contacto" class="text-center py-4 mt-5">
     <div class="container">
       <p class="mb-1">&copy; 2026 GameZone. Actividad formativa - Desarrollo Frontend I (PFY2201).</p>
-      <p class="mb-0">Contacto: contacto@gamezone.cl</p>
+      <p class="mb-3">Contacto: contacto@gamezone.cl</p>
+
+      <!-- Formulario de contacto: dispara el evento submit -->
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-start">
+          <form id="form-contacto" novalidate>
+            <div class="mb-3">
+              <label for="nombre" class="form-label text-white">Nombre</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label text-white">Correo electrónico</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="mensaje" class="form-label text-white">Mensaje</label>
+              <textarea class="form-control" id="mensaje" name="mensaje" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+          </form>
+
+          <!-- Aquí se inyecta dinámicamente la confirmación o el error -->
+          <div id="form-feedback" class="mt-3" aria-live="polite"></div>
+        </div>
+      </div>
     </div>
   </footer>
 
   <!-- Bootstrap 5.3 JS Bundle (incluye Popper) via CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Semana 5: manipulación del DOM, eventos y Fetch API -->
+  <script src="js/script.js"></script>
 
 </body>
 </html>

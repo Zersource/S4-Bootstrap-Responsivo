@@ -1,0 +1,20 @@
+[
+  {
+    "id": 5,
+    "titulo": "Sombras del Norte",
+    "descripcion": "Survival horror ambientado en un pueblo nórdico azotado por una tormenta eterna.",
+    "imagen": "https://picsum.photos/seed/sombras-norte/400/200"
+  },
+  {
+    "id": 6,
+    "titulo": "Arena Cósmica",
+    "descripcion": "Shooter arena multijugador con gravedad variable y mapas flotantes.",
+    "imagen": "https://picsum.photos/seed/arena-cosmica/400/200"
+  },
+  {
+    "id": 7,
+    "titulo": "Taller Mecánico",
+    "descripcion": "Simulador de reparación y tuneo de vehículos con física realista de motores.",
+    "imagen": "https://picsum.photos/seed/taller-mecanico/400/200"
+  }
+]
